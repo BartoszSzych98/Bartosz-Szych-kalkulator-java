@@ -1,0 +1,79 @@
+CREATE TABLE ISSUESLISTS (
+                             ID SERIAL PRIMARY KEY,
+                             NAME VARCHAR(40)
+);
+
+CREATE TABLE ISSUES (
+                        ID SERIAL PRIMARY KEY,
+                        ISSUESLIST_ID BIGINT UNSIGNED NOT NULL,
+                        SUMMARY VARCHAR(512),
+                        DESCRIPTION VARCHAR(2048),
+                        USER_ID_ASSIGNEDTO BIGINT UNSIGNED NOT NULL,
+                        FOREIGN KEY (ISSUESLIST_ID) REFERENCES ISSUESLISTS(ID),
+                        FOREIGN KEY (USER_ID_ASSIGNEDTO) REFERENCES USERS(ID)
+);
+
+show TABLES;
+
+INSERT INTO ISSUESLISTS (NAME) VALUES ("ToDo");
+INSERT INTO ISSUESLISTS (NAME) VALUES ("In progress");
+INSERT INTO ISSUESLISTS (NAME) VALUES ("Done");
+
+COMMIT;
+
+SELECT*from ISSUESLISTS;
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES (1, 'Feed fish', 'Give leafs to herbivore and shrimps to carnivore', 1);
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES (1, 'Feed dog', 'Give the dog a one tin of meat and a one bowl of crisps', 2);
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES (1, 'Feed cat', 'Give the cat a salmon', 3);
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES (1, 'Feed rabbits', 'Give them carrots and lettuce', 4);
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES (1, 'Feed horses', 'Give them an oat and barrel', 5);
+
+SELECT*from ISSUES;
+
+COMMIT;
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES (2, 'Clean a toilet', 'Clean with a Domestos and a Cif', 1);
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES (2, 'Clean a kitchen', 'Wash a plates and clean an oven', 2);
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES (2, 'Clean a hall', 'A little bit dance with vacuum cleaner', 3);
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES (2, 'Clean a garage', 'Deal with a general mess', 4);
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES (2, 'Clean a living room', 'Wipe the dust and clean windows', 5);
+
+COMMIT;
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES (3, 'Take out a garbage', 'Glass to glass, plastic to plastic, bio to bio', 1);
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES (3, 'Take a dog for a walk', 'A few rounds around the park and around the fontaine', 2);
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES (3, 'Make a dinner', 'Steak for the wife, dinosaurs chicken nuggets for children', 3);
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES (3, 'Repair a car', 'Check an oil, put a new lights, pump a tyres', 4);
+
+INSERT INTO ISSUES (ISSUESLIST_ID, SUMMARY, DESCRIPTION, USER_ID_ASSIGNEDTO)
+VALUES (3, 'Relax', 'A little bit net surfing, beer or two, play the piano', 5);
+
+COMMIT;
+
+SELECT * FROM ISSUES;
+
