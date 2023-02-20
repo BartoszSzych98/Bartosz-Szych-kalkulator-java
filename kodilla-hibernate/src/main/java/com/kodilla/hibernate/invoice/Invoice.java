@@ -1,8 +1,8 @@
 package com.kodilla.hibernate.invoice;
 
-import com.sun.istack.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,24 +13,25 @@ public class Invoice {
     private String number;
     private List<Item> items = new ArrayList<>();
 
+    public Invoice() {
+    }
 
-    public Invoice(){}
-    public Invoice(String number, List<Item> items) {
+    public Invoice(String number) {
         this.number = number;
-        this.items = items;
     }
 
     @Id
     @GeneratedValue
     @NotNull
     @Column(name = "INVOICE_ID", unique = true)
-    public int getId() {return id;}
-    public void setId(int id) {this.id = id;}
+    public int getId() {
+        return id;
+    }
 
-    @NotNull
-    @Column(name = "NUMBER")
-    public String getNumber() {return number;}
-    public void setNumber(String number) {this.number = number;}
+    @Column(name = "INVOICE_NUMBER")
+    public String getNumber() {
+        return number;
+    }
 
     @OneToMany(
             targetEntity = Item.class,
@@ -38,6 +39,19 @@ public class Invoice {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    public List<Item> getItems() {return items;}
-    private void setItems(List<Item> items) {this.items = items;}
+    public List<Item> getItems() {
+        return items;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
+
+    private void setNumber(String number) {
+        this.number = number;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
 }

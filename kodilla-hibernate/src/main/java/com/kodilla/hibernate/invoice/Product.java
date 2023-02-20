@@ -1,26 +1,25 @@
 package com.kodilla.hibernate.invoice;
 
-import com.sun.istack.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @Entity
-@Table(name = "PRODUCTS")
+@Table(name = "PRODUCT")
 public class Product {
     private int id;
     private String name;
-    private List<Item> items = new ArrayList<>();
-
 
     public Product() {
-
     }
+
+    private List<Item> items = new ArrayList<>();
+
     public Product(String name) {
         this.name = name;
     }
-
 
     @Id
     @GeneratedValue
@@ -29,16 +28,13 @@ public class Product {
     public int getId() {
         return id;
     }
-    public void setId(int id) {
-        this.id = id;
-    }
 
     @NotNull
-    @Column(name = "NAME")
-    public String getName() {return name;}
-    public void setName(String name) {
-        this.name = name;
+    @Column(name = "PRODUCT_NAME")
+    public String getName() {
+        return name;
     }
+
 
     @OneToMany(
             targetEntity = Item.class,
@@ -46,6 +42,19 @@ public class Product {
             cascade = CascadeType.ALL,
             fetch = FetchType.LAZY
     )
-    public List<Item> getItems() {return items;}
-    public void setItems(List<Item> items) {this.items = items;}
+    public List<Item> getItems() {
+        return items;
+    }
+
+    public void setItems(List<Item> items) {
+        this.items = items;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
+
+    private void setName(String name) {
+        this.name = name;
+    }
 }

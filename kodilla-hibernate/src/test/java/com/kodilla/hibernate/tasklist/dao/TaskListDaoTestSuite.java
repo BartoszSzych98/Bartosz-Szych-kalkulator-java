@@ -2,6 +2,7 @@ package com.kodilla.hibernate.tasklist.dao;
 
 import com.kodilla.hibernate.task.Task;
 import com.kodilla.hibernate.task.TaskFinancialDetails;
+import com.kodilla.hibernate.task.dao.TaskDao;
 import com.kodilla.hibernate.tasklist.TaskList;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,29 +10,28 @@ import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 public class TaskListDaoTestSuite {
 
     @Autowired
     private TaskListDao taskListDao;
-    private static final String LISTNAME = "Test: ListName";
-    private static final String DESCRIPTION = "Test: Learn Hibernate";
+    private static final String LISTNAME = "To do list";
 
     @Test
     void testFindByListName() {
         //Given
-        TaskList taskList = new TaskList(LISTNAME, DESCRIPTION);
+        TaskList taskList = new TaskList(LISTNAME, "Something to do:)");
         taskListDao.save(taskList);
         String listName = taskList.getListName();
 
-        //When
+        // When
         List<TaskList> readTaskList = taskListDao.findByListName(listName);
 
-        //Then
+        // Then
         assertEquals(1, readTaskList.size());
 
         //CleanUp
@@ -42,7 +42,7 @@ public class TaskListDaoTestSuite {
     @Test
     void testTaskListDaoSaveWithTasks() {
         //Given
-        Task task = new Task(DESCRIPTION, 14);
+        Task task = new Task("Test: Learn Hibernate", 14);
         Task task2 = new Task("Test: Write some entities", 3);
         TaskFinancialDetails tfd = new TaskFinancialDetails(new BigDecimal(20), false);
         TaskFinancialDetails tfd2 = new TaskFinancialDetails(new BigDecimal(10), false);

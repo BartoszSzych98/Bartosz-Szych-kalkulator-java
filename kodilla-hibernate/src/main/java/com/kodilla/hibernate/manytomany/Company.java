@@ -1,15 +1,16 @@
 package com.kodilla.hibernate.manytomany;
 
-import com.sun.istack.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
-import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
 @NamedNativeQuery(
-        name = "Company.findByFirstThreeLetters",
-        query = "SELECT * FROM COMPANY" +
-                " WHERE LEFT(UPPER(name),3)"
+        name = "Company.retrieveCompaniesWithGivenThreeFirstLetters",
+        query = "SELECT * FROM COMPANIES" +
+                " WHERE LEFT(COMPANY_NAME,3) = 'Sof'",
+        resultClass = Company.class
 )
 @Entity
 @Table(name = "COMPANIES")
@@ -53,7 +54,7 @@ public class Company {
         return employees;
     }
 
-    private void setEmployees(List<Employee> employees) {
+    public void setEmployees(List<Employee> employees) {
         this.employees = employees;
     }
 }

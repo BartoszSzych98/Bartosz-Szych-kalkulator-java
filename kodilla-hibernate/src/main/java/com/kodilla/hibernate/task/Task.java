@@ -1,9 +1,9 @@
 package com.kodilla.hibernate.task;
 
 import com.kodilla.hibernate.tasklist.TaskList;
-import com.sun.istack.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
-import javax.persistence.*;
 import java.util.Date;
 
 @NamedQueries({
@@ -20,6 +20,7 @@ import java.util.Date;
                 query = "FROM Task WHERE duration > :DURATION"
         )
 })
+
 @NamedNativeQuery(
         name = "Task.retrieveTasksWithEnoughTime",
         query = "SELECT * FROM TASKS" +
@@ -38,7 +39,8 @@ public class Task {
     private TaskFinancialDetails taskFinancialDetails;
     private TaskList taskList;
 
-    public Task() {}
+    public Task() {
+    }
 
     public Task(String description, int duration) {
         this.description = description;
@@ -49,7 +51,7 @@ public class Task {
     @Id
     @GeneratedValue
     @NotNull
-    @Column(name="ID", unique=true)
+    @Column(name = "ID", unique = true)
     public int getId() {
         return id;
     }
@@ -70,22 +72,6 @@ public class Task {
         return duration;
     }
 
-    private void setId(int id) {
-        this.id = id;
-    }
-
-    private void setDescription(String description) {
-        this.description = description;
-    }
-
-    private void setCreated(Date created) {
-        this.created = created;
-    }
-
-    private void setDuration(int duration) {
-        this.duration = duration;
-    }
-
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinColumn(name = "TASKS_FINANCIALS_ID")
     public TaskFinancialDetails getTaskFinancialDetails() {
@@ -104,5 +90,21 @@ public class Task {
 
     public void setTaskList(TaskList taskList) {
         this.taskList = taskList;
+    }
+
+    private void setId(int id) {
+        this.id = id;
+    }
+
+    private void setDescription(String description) {
+        this.description = description;
+    }
+
+    private void setCreated(Date created) {
+        this.created = created;
+    }
+
+    private void setDuration(int duration) {
+        this.duration = duration;
     }
 }

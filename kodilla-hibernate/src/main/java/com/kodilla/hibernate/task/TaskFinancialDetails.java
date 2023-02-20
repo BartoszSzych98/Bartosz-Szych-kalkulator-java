@@ -1,8 +1,8 @@
 package com.kodilla.hibernate.task;
 
-import com.sun.istack.NotNull;
+import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 
-import javax.persistence.*;
 import java.math.BigDecimal;
 
 @Entity

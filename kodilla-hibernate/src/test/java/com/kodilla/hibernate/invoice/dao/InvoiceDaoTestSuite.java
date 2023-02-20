@@ -8,8 +8,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 
 import java.math.BigDecimal;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 
@@ -21,29 +19,50 @@ public class InvoiceDaoTestSuite {
     @Test
     void testInvoiceDaoSave() {
         //Given
-        Product product1 = new Product("Bleach");
-        Product product2 = new Product("PC");
+        Product product1 = new Product("Cup for coffee");
+        Product product2 = new Product("Kettle Zelmer");
+        Product product3 = new Product("Shallow plate");
 
-        List<Item> items = new ArrayList<>();
-        Item item1 = new Item(product1, BigDecimal.valueOf(125.45), 5, BigDecimal.valueOf(15458.46));
-        Item item2 = new Item(product2, BigDecimal.valueOf(55.5), 8, BigDecimal.valueOf(5888.51));
-        Item item3 = new Item(product1, BigDecimal.valueOf(0.01), 10000000, BigDecimal.valueOf(1));
-        items.add(item1);
-        items.add(item2);
-        items.add(item3);
+        Item item1 = new Item(new BigDecimal(12), 10, new BigDecimal(120));
+        Item item2 = new Item(new BigDecimal(12), 10, new BigDecimal(120));
+        Item item3 = new Item(new BigDecimal(110), 1, new BigDecimal(110));
+        Item item4 = new Item(new BigDecimal(280), 1, new BigDecimal(280));
 
-        Invoice invoice = new Invoice("1254", items);
+        Invoice invoice = new Invoice("20230202/1");
+
+        product1.getItems().add(item1);
+        product1.getItems().add(item2);
+        product2.getItems().add(item3);
+        product3.getItems().add(item4);
+
+        item1.setProduct(product1);
+        item2.setProduct(product1);
+        item3.setProduct(product2);
+        item4.setProduct(product3);
+
+        item1.setInvoice(invoice);
+        item2.setInvoice(invoice);
+        item3.setInvoice(invoice);
+        item4.setInvoice(invoice);
+
+        invoice.getItems().add(item1);
+        invoice.getItems().add(item2);
+        invoice.getItems().add(item3);
+        invoice.getItems().add(item4);
 
         //When
-
         invoiceDao.save(invoice);
-        int id = invoice.getId();
+        int invoiceId = invoice.getId();
 
         //Then
-        assertNotEquals(0, id);
+        assertNotEquals(0, invoiceId);
 
         //CleanUp
-        invoiceDao.deleteById(id);
-
+        try {
+            invoiceDao.deleteById(invoiceId);
+        } catch (Exception e) {
+            //do nothing
+        }
     }
 }
+
