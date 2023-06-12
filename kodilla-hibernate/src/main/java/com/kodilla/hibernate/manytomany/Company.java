@@ -6,11 +6,14 @@ import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
+@NamedQuery(
+        name = "Employee.findEmployeeByLastname",
+        query = "FROM Employee where lastname = :LASTNAME"
+)
 @NamedNativeQuery(
-        name = "Company.retrieveCompaniesWithGivenThreeFirstLetters",
-        query = "SELECT * FROM COMPANIES" +
-                " WHERE LEFT(COMPANY_NAME,3) = 'Sof'",
-        resultClass = Company.class
+        name = "Employee.findEmployeeByLastnameFragment",
+        query = "SELECT * FROM EMPLOYEES WHERE LASTNAME LIKE CONCAT('%', :FRAGMENT , '%')",
+        resultClass = Employee.class
 )
 @Entity
 @Table(name = "COMPANIES")
