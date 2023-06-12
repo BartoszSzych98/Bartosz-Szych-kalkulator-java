@@ -1,0 +1,33 @@
+{
+	"name":"Insignia"
+	"brand":"Opel"	
+	"car seats":[
+	    {
+	    "seat1":{
+		"material":"leather",
+		"color":"black"
+	    }
+	    },
+	     {
+	    "seat2":{
+		"material":"velur",
+		"color":"red"
+	    }
+	    },
+	     {
+	    "seat3":{
+		"material":"textile",
+		"color":"brown"
+	    }
+	    },
+	     {
+	    "seat3":{
+		"material":"wood",
+		"color":"blue"
+	    }
+	    }
+	    ]
+            
+	  "engine":"1.4T"
+	    
+}
