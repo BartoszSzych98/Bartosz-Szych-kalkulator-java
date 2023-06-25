@@ -8,63 +8,51 @@ import java.math.BigDecimal;
 
 
 @Entity
-@Table(name = "ITEM")
+@Table(name = "ITEMS")
 public class Item {
+
     private int id;
     private Product product;
     private BigDecimal price;
     private int quantity;
     private BigDecimal value;
-
     private Invoice invoice;
 
     public Item() {
     }
 
-    public Item(BigDecimal price, int quantity, BigDecimal value) {
+    public Item(Product product, BigDecimal price, int quantity) {
+        this.product = product;
         this.price = price;
         this.quantity = quantity;
-        this.value = value;
+        this.value = price.multiply(BigDecimal.valueOf(quantity));
     }
 
     @Id
     @GeneratedValue
-    @NotNull
-    @Column(name = "ITEM_ID", unique = true)
     public int getId() {
         return id;
     }
 
-    @ManyToOne
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.PERSIST)
     @JoinColumn(name = "PRODUCT_ID")
     public Product getProduct() {
         return product;
     }
 
-    @Column(name = "PRICE")
     public BigDecimal getPrice() {
         return price;
     }
 
-    @Column(name = "QUANTITY")
     public int getQuantity() {
         return quantity;
     }
 
-    @Column(name = "VALUE")
     public BigDecimal getValue() {
         return value;
     }
 
-    @ManyToOne
-    @Cascade(org.hibernate.annotations.CascadeType.ALL)
-    @JoinColumn(name = "INVOICE_ID")
-    public Invoice getInvoice() {
-        return invoice;
-    }
-
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -72,19 +60,26 @@ public class Item {
         this.product = product;
     }
 
-    private void setPrice(BigDecimal price) {
+    public void setPrice(BigDecimal price) {
         this.price = price;
     }
 
-    private void setQuantity(int quantity) {
+    public void setQuantity(int quantity) {
         this.quantity = quantity;
     }
 
-    private void setValue(BigDecimal value) {
+    public void setValue(BigDecimal value) {
         this.value = value;
+    }
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "INVOICE_ID")
+    public Invoice getInvoice() {
+        return invoice;
     }
 
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
     }
 }
+

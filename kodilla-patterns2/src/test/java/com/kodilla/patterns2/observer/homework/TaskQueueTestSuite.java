@@ -38,7 +38,7 @@ public class TaskQueueTestSuite {
         walterWhite.sendTaskToCheck("Task 21.1");
 
         //Then
-        assertEquals(7, mentor1.getUpdateCounter());
-        assertEquals(4, mentor2.getUpdateCounter());
+        assertEquals(6, mentor1.getUpdateCounter());
+        assertEquals(5, mentor2.getUpdateCounter());
     }
 }

@@ -15,13 +15,13 @@ public class MedianAdapterTestSuite {
     public void publicationYearMedianTest() {
         //Given
         Set<Book> books = new HashSet<>();
-        books.add(new Book("Author 1", "Title 1", 2010, "000154c"));
-        books.add(new Book("Author 2", "Title 2", 2011, "000158h"));
-        books.add(new Book("Author 3", "Title 3", 2012, "000153d"));
-        books.add(new Book("Author 4", "Title 4", 2013, "00015v8"));
-        books.add(new Book("Author 5", "Title 5", 2014, "000153f"));
-        books.add(new Book("Author 6", "Title 6", 2015, "000159k"));
-        books.add(new Book("Author 7", "Title 7", 2016, "000154x"));
+        books.add(new Book("Author 1", "Title 1", 2000, "000768c"));
+        books.add(new Book("Author 2", "Title 2", 2012, "000345u"));
+        books.add(new Book("Author 3", "Title 3", 2022, "000153d"));
+        books.add(new Book("Author 4", "Title 4", 2023, "00013p9"));
+        books.add(new Book("Author 5", "Title 5", 2004, "000183t"));
+        books.add(new Book("Author 6", "Title 6", 2017, "000789u"));
+        books.add(new Book("Author 7", "Title 7", 2019, "000124o"));
 
         MedianAdapter medianAdapter = new MedianAdapter();
 
@@ -29,6 +29,6 @@ public class MedianAdapterTestSuite {
         int median = medianAdapter.publicationYearMedian(books);
 
         //Then
-        assertEquals(2013, median);
+        assertEquals(2017, median);
     }
 }

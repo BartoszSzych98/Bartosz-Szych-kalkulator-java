@@ -6,14 +6,15 @@ import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
-@NamedQuery(
-        name = "Employee.findEmployeeByLastname",
-        query = "FROM Employee where lastname = :LASTNAME"
+@NamedNativeQuery(
+        name = "Company.findCompanyByFirst3Letters",
+        query = "SELECT * FROM COMPANIES WHERE LEFT(company_name, 3) = :LETTERS",
+        resultClass = Company.class
 )
 @NamedNativeQuery(
-        name = "Employee.findEmployeeByLastnameFragment",
-        query = "SELECT * FROM EMPLOYEES WHERE LASTNAME LIKE CONCAT('%', :FRAGMENT , '%')",
-        resultClass = Employee.class
+        name = "Company.findCompanyByNameFragment",
+        query = "SELECT * FROM COMPANIES WHERE COMPANY_NAME LIKE CONCAT('%', :FRAGMENT , '%')",
+        resultClass = Company.class
 )
 @Entity
 @Table(name = "COMPANIES")
@@ -44,11 +45,11 @@ public class Company {
         return name;
     }
 
-    private void setId(int id) {
+    public void setId(int id) {
         this.id = id;
     }
 
-    private void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
